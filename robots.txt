@@ -1,0 +1,10 @@
+# Feitosa Ribas Advocacia — holding.feitosaribas.com.br
+
+User-agent: *
+Allow: /
+
+# Arquivos internos: não indexar
+Disallow: /enviar.php
+Disallow: /LEIA-ME.txt
+
+Sitemap: https://holding.feitosaribas.com.br/sitemap.xml

@@ -1,0 +1,63 @@
+# ============================================================
+# Feitosa Ribas Advocacia — configuração do servidor
+# Apache / LiteSpeed (Hostinger)
+# ============================================================
+
+# --- Página de erro personalizada ---
+ErrorDocument 404 /404.html
+
+# --- Cabeçalhos de segurança ---
+<IfModule mod_headers.c>
+    # Impede o navegador de "adivinhar" o tipo do arquivo
+    Header always set X-Content-Type-Options "nosniff"
+
+    # Impede que o site seja embutido em iframe de terceiros (clickjacking)
+    Header always set X-Frame-Options "SAMEORIGIN"
+
+    # Envia apenas o domínio como referência ao sair do site
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # Desliga recursos do navegador que o site não usa
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), usb=()"
+
+    # Só ativar depois de confirmar que o HTTPS funciona em todos os endereços.
+    # Uma vez enviado, o navegador recusa HTTP por um ano.
+    # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+</IfModule>
+
+# --- Protege arquivos internos ---
+<FilesMatch "^(LEIA-ME\.txt|\.htaccess|\.gitignore|README\.md)$">
+    Require all denied
+</FilesMatch>
+
+# Bloqueia o acesso a qualquer arquivo iniciado por ponto
+RedirectMatch 404 /\..*$
+
+# --- Impede listagem de pastas sem index ---
+Options -Indexes
+
+# --- Compressão ---
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml
+    AddOutputFilterByType DEFLATE application/javascript application/json
+    AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# --- Cache dos arquivos estáticos ---
+# O CSS e o JS usam ?v=N no endereço, então podem ter cache longo:
+# ao mudar o número, o navegador busca a versão nova.
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css                "access plus 1 year"
+    ExpiresByType application/javascript  "access plus 1 year"
+    ExpiresByType image/jpeg              "access plus 6 months"
+    ExpiresByType image/png               "access plus 6 months"
+    ExpiresByType image/webp              "access plus 6 months"
+    ExpiresByType text/html               "access plus 1 hour"
+</IfModule>
+
+# --- Tipos de arquivo ---
+<IfModule mod_mime.c>
+    AddType image/webp .webp
+    AddDefaultCharset UTF-8
+</IfModule>

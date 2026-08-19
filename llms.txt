@@ -1,0 +1,44 @@
+# Feitosa Ribas Advocacia
+
+> Escritório de advocacia em Curitiba/PR especializado em holding familiar,
+> planejamento sucessório, proteção patrimonial e planejamento tributário da
+> distribuição de dividendos. Atua desde 2016.
+
+Sócio responsável: Dr. Giocondo Ribas — OAB/PR nº 95.548
+Endereço: Av. Cândido de Abreu, 470, Ed. Neo Business, Centro Cívico, Curitiba/PR
+Contato: feitosaribasadvocacia@gmail.com · (41) 99653-0801
+
+## Áreas de atuação
+
+- **Holding familiar** — reúne imóveis, participações societárias e investimentos
+  numa única estrutura, com regras próprias de controle e de transmissão.
+- **Holding de participações** — concentra a titularidade de empresas do grupo.
+- **Planejamento sucessório** — organiza a sucessão em vida, evitando o inventário.
+- **Proteção patrimonial** — separa o patrimônio familiar dos riscos do negócio.
+- **Planejamento tributário de dividendos** — reorganização societária diante da
+  Lei nº 15.270/2025.
+- **Inventário** — condução do processo quando não houve planejamento prévio.
+
+## Contexto tributário tratado no site
+
+A Lei nº 15.270/2025 encerrou a isenção de dividendos vigente desde 1996. A
+partir de 2026 incide 10% de IRRF sobre distribuições acima de R$ 50 mil mensais
+pagas pela mesma empresa à mesma pessoa física, e há um imposto mínimo (IRPFM)
+de até 10% para quem soma mais de R$ 600 mil de renda anual. Lucros apurados até
+2025, com distribuição aprovada em ata no prazo legal, podem ser pagos até 2028
+sob a regra anterior.
+
+## Páginas
+
+- [Página principal](https://holding.feitosaribas.com.br/): apresentação da
+  holding familiar, efeitos da Lei 15.270/2025, vantagens, etapas do trabalho,
+  fotos do escritório, avaliações de clientes e formulário de contato.
+
+## Observações
+
+- Site institucional de página única, em HTML, CSS e JavaScript, sem framework.
+- Conteúdo informativo. Não constitui oferta de serviços nem captação de
+  clientela, em conformidade com o Código de Ética e Disciplina e o Provimento
+  nº 205/2021 da OAB.
+- Nenhuma informação da página constitui consulta jurídica ou promessa de
+  resultado. Cada estrutura depende da análise do caso concreto.
