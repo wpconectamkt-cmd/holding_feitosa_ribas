@@ -120,9 +120,11 @@
           else b.removeAttribute('aria-current');
         });
       }
-      // esconde de leitores de tela o que está fora da janela visível
+      // esconde de leitores de tela e do teclado o que está fora da janela visível
       slides.forEach(function (s, k) {
-        s.setAttribute('aria-hidden', String(k < atual || k >= atual + porVista));
+        const fora = k < atual || k >= atual + porVista;
+        s.setAttribute('aria-hidden', String(fora));
+        s.inert = fora; // sem isso o "Ler mais" de um cartão escondido receberia foco
       });
     }
 
@@ -178,6 +180,49 @@
     recalcular();
     iniciar();
   });
+
+  /* ---------- 4b. Depoimentos: botão "Ler mais" ---------- */
+  const depoimentos = Array.prototype.slice.call(document.querySelectorAll('.depoimento'));
+  if (depoimentos.length) {
+    depoimentos.forEach(function (dep) {
+      const texto = dep.querySelector('p');
+      if (!texto) return;
+
+      const botao = document.createElement('button');
+      botao.type = 'button';
+      botao.className = 'depoimento__mais';
+      botao.textContent = 'Ler mais';
+      botao.setAttribute('aria-expanded', 'false');
+      texto.insertAdjacentElement('afterend', botao);
+
+      botao.addEventListener('click', function () {
+        const aberto = dep.classList.toggle('depoimento--aberto');
+        botao.textContent = aberto ? 'Ler menos' : 'Ler mais';
+        botao.setAttribute('aria-expanded', String(aberto));
+      });
+    });
+
+    // o botão só aparece onde o texto realmente foi cortado pelas 5 linhas
+    function conferirCortes() {
+      depoimentos.forEach(function (dep) {
+        if (dep.classList.contains('depoimento--aberto')) return; // aberto não dá para medir
+        const texto = dep.querySelector('p');
+        if (!texto) return;
+        dep.classList.toggle('depoimento--truncado', texto.scrollHeight > texto.clientHeight + 1);
+      });
+    }
+
+    conferirCortes();
+    // as fontes serifadas mudam a altura das linhas quando terminam de carregar
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(conferirCortes);
+    window.addEventListener('load', conferirCortes);
+
+    let esperaCorte = null;
+    window.addEventListener('resize', function () {
+      clearTimeout(esperaCorte);
+      esperaCorte = setTimeout(conferirCortes, 150);
+    });
+  }
 
   /* ---------- 5. Máscara de telefone ---------- */
   const campoTel = document.getElementById('telefone');

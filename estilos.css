@@ -433,6 +433,22 @@ ul, ol { list-style: none; }
 }
 .depoimento::before { content: "\201C"; font-family: var(--serif); font-size: 2.75rem; color: var(--ouro); line-height: 0.6; height: 24px; }
 .depoimento p { font-family: var(--serif); font-size: 1.19rem; line-height: 1.5; color: #26313F; margin-bottom: 26px; }
+/* o texto fica em 5 linhas para os cartões da fileira ficarem parelhos;
+   quem escreveu mais ganha o botão "Ler mais" (ver script.js) */
+.depoimento p {
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 5;
+  overflow: hidden;
+}
+.depoimento--aberto p { display: block; overflow: visible; }
+.depoimento__mais {
+  display: none; align-self: flex-start;
+  margin: -18px 0 24px; padding: 0;
+  background: none; border: 0; cursor: pointer;
+  font-family: var(--sans); font-size: 0.84rem; font-weight: 700;
+  letter-spacing: 0.02em; color: var(--ouro-escuro);
+}
+.depoimento--truncado .depoimento__mais, .depoimento--aberto .depoimento__mais { display: block; }
+.depoimento__mais:hover { color: var(--ouro); text-decoration: underline; }
 .depoimento footer { display: flex; align-items: center; gap: 14px; margin-top: auto; }
 .depoimento footer img { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; flex: none; background: var(--creme); }
 .depoimento footer strong { display: block; font-size: 0.94rem; color: var(--marinho-texto); }
@@ -537,16 +553,17 @@ ul, ol { list-style: none; }
 .whatsapp-flutuante {
   position: fixed; right: 24px; bottom: 84px; z-index: 90;
   display: flex; align-items: center; gap: 10px;
-  background: var(--ouro); color: var(--marinho);
-  padding: 14px 20px; border-radius: 100px;
-  font-size: 0.875rem; font-weight: 700;
-  box-shadow: 0 14px 30px -12px rgba(14, 27, 44, 0.6);
+  background: #40C351; color: #FFFFFF;
+  padding: 18px 26px; border-radius: 100px;
+  font-size: 1.0625rem; font-weight: 700;
+  box-shadow: 0 14px 30px -12px rgba(20, 83, 33, 0.55);
   opacity: 0; visibility: hidden;
   transform: translateY(12px);
   transition: opacity var(--transicao), transform var(--transicao), visibility var(--transicao), background var(--transicao);
 }
+.whatsapp-flutuante__icone { flex: none; width: 22px; height: 22px; display: block; }
 .whatsapp-flutuante.visivel { opacity: 1; visibility: visible; transform: translateY(0); }
-.whatsapp-flutuante:hover { background: var(--ouro-claro); color: var(--marinho); }
+.whatsapp-flutuante:hover { background: #35A845; color: #FFFFFF; }
 
 /* --- 19. Animação de entrada --- */
 .animar { animation: subir 0.8s ease both; }
@@ -699,7 +716,8 @@ ul, ol { list-style: none; }
   .modal__topo { padding: 24px 22px 18px; }
   .modal__titulo { font-size: 1.5rem; }
   .modal__corpo { padding: 22px 22px 28px; }
-  .whatsapp-flutuante { right: 16px; bottom: 56px; padding: 13px 16px; }
+  .whatsapp-flutuante { right: 16px; bottom: 56px; padding: 16px 18px; font-size: 1rem; }
+  .whatsapp-flutuante__icone { width: 24px; height: 24px; }
   .whatsapp-flutuante__texto { display: none; }
   .rodape__base { flex-direction: column; align-items: flex-start; gap: 14px; }
 
