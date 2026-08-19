@@ -1,0 +1,11 @@
+# Arquivos gerados em execução no servidor
+cache-*.json
+
+# Arquivos do sistema operacional
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Cópias de segurança locais
+.backup-*/
+*.bak

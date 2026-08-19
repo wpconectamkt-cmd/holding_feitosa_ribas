@@ -1,0 +1,173 @@
+FEITOSA RIBAS — LANDING PAGE HOLDING FAMILIAR
+Código-fonte HTML5 + CSS3 + JavaScript · Agosto 2026
+==========================================================
+
+ARQUIVOS
+--------
+index.html    Estrutura da página (HTML5 semântico)
+estilos.css   Todo o visual (CSS3: variáveis, grid, clamp, media queries)
+script.js     Interações (JavaScript puro, sem jQuery/framework)
+enviar.php    Recebe o formulário e envia o e-mail (roda no servidor)
+diagnostico.php  Testa o envio de e-mail — APAGUE depois de usar
+imagens/      Pasta onde você coloca as fotos (veja abaixo)
+
+Nenhuma biblioteca externa, nenhum build, nenhuma dependência.
+Só as fontes do Google Fonts (carregadas por link no index.html).
+
+
+COMO PUBLICAR (HOSTINGER OU QUALQUER OUTRA)
+-------------------------------------------
+1. hPanel > Arquivos > Gerenciador de Arquivos.
+2. Entre na pasta do domínio (public_html) ou do subdomínio
+   (public_html/holding).
+3. Envie os três arquivos + a pasta imagens/, mantendo a estrutura:
+
+   public_html/
+     index.html
+     estilos.css
+     script.js
+     imagens/
+       advogado-responsavel.jpg
+       socio-responsavel.jpg
+       holding-familiar.jpg
+       holding-imobiliaria.jpg
+       cliente-1.jpg  cliente-2.jpg  cliente-3.jpg
+       og-image.jpg
+
+4. Acesse o endereço no navegador.
+
+Por FTP (FileZilla) o processo é o mesmo: envie para a pasta raiz.
+
+
+IMAGENS — O QUE PRECISA SER SUBSTITUÍDO
+---------------------------------------
+Crie a pasta "imagens" e coloque nela os arquivos com estes nomes
+(ou mude o caminho no atributo src= do index.html):
+
+  advogado-responsavel.jpg   Herói · retrato vertical (~640x800)
+  socio-responsavel.jpg      Seção diferencial (~600x750)
+  holding-familiar.jpg       Símbolo holding familiar (~800x500)
+  holding-imobiliaria.jpg    Símbolo holding imobiliária (~800x500)
+  cliente-1/2/3.jpg          Depoimentos · quadrado (~200x200)
+  og-image.jpg               Compartilhamento em redes (1200x630)
+
+Dica de performance: comprima em WebP ou JPEG otimizado (até ~200 KB
+cada). O herói é o elemento que mais afeta a velocidade da página.
+
+
+O QUE O JAVASCRIPT FAZ
+----------------------
+- Menu sanduíche no celular (abre/fecha, fecha com ESC)
+- Sombra no cabeçalho ao rolar
+- Botão flutuante de WhatsApp que aparece após rolar
+- Animação de entrada das seções (IntersectionObserver)
+- Máscara automática no campo de telefone
+- Validação do formulário e envio via WhatsApp
+
+FORMULÁRIO — CONFIGURAR O ENVIO DE E-MAIL
+-----------------------------------------
+O formulário envia os dados para enviar.php, que fica no servidor e
+dispara o e-mail pelo SMTP da Hostinger. O visitante permanece na
+página e vê a confirmação ali mesmo.
+
+FALTA UM PASSO: a senha do e-mail.
+
+Ela foi deixada em branco de propósito. Senha não deve ficar guardada
+no computador nem passar por chat ou e-mail. Preencha direto no
+servidor, assim:
+
+  1. hPanel > Arquivos > Gerenciador de Arquivos
+  2. Abra public_html/enviar.php (botão direito > Editar)
+  3. Localize a linha, logo no começo:
+
+       'smtp_senha'   => '',
+
+  4. Ponha a senha da conta contato@feitosaribas.com.br entre as aspas
+  5. Salve
+
+O restante já está preenchido:
+
+  Servidor .: smtp.hostinger.com, porta 465 (SSL)
+  Envia como: contato@feitosaribas.com.br
+  Recebe em.: feitosaribasadvocacia@gmail.com
+
+Para trocar o e-mail que recebe as mensagens, altere a linha
+'destino' no mesmo arquivo.
+
+
+TESTANDO O FORMULÁRIO
+---------------------
+Só funciona no servidor, com PHP. Não funciona abrindo o arquivo pelo
+Windows nem pelo Live Server do VS Code — esses não executam PHP.
+
+Depois de publicar, preencha o formulário no site e confira a caixa de
+entrada. Se não chegar:
+
+  - Confira a pasta de spam
+  - Veja o log de erros em hPanel > Avançado > Registros de erro do PHP
+    (as falhas de SMTP são registradas lá, com o motivo exato)
+  - Se a porta 465 estiver bloqueada, troque no enviar.php para
+    'smtp_porta' => 587 e 'smtp_seguro' => 'tls'
+
+
+PROTEÇÕES JÁ EMBUTIDAS
+----------------------
+- Campo-armadilha invisível: robôs preenchem e a mensagem é descartada
+- Limite de um envio a cada 30 segundos por visitante
+- Validação refeita no servidor (a do navegador pode ser burlada)
+- Caixa de aceite da Política de Privacidade, obrigatória (LGPD)
+- Responder o e-mail recebido responde direto ao visitante
+
+
+DEPOIMENTOS
+-----------
+Os 12 depoimentos ficam escritos direto no index.html, dentro da
+seção com class="carrossel--depoimentos". Cada um é um bloco assim:
+
+  <li class="carrossel__slide">
+    <blockquote class="depoimento">
+      <p>Texto do depoimento</p>
+      <footer>
+        <span class="depoimento__inicial" aria-hidden="true">L</span>
+        <span><strong>Nome</strong>Avaliação no Google · há 3 anos</span>
+      </footer>
+    </blockquote>
+  </li>
+
+Para acrescentar, copie um bloco inteiro e troque o texto, o nome e a
+inicial. Para remover, apague o bloco do <li> ao </li>. O carrossel se
+ajusta sozinho à quantidade — não é preciso mexer em mais nada.
+
+Mostra 3 por vez no computador, 2 no tablet e 1 no celular. O intervalo
+de troca está no atributo data-intervalo="7000" (em milissegundos).
+
+
+ATUALIZANDO O SITE DEPOIS DE PUBLICADO
+--------------------------------------
+Ao alterar estilos.css ou script.js, aumente o número no final destas
+duas linhas do index.html:
+
+  <link rel="stylesheet" href="estilos.css?v=6">
+  <script src="script.js?v=6" defer></script>
+
+Passe para ?v=7, depois ?v=8, e assim por diante. Sem isso, quem já
+visitou o site continua vendo a versão antiga guardada no navegador.
+
+CHECKLIST ANTES DE DIVULGAR
+---------------------------
+[ ] Fotos reais colocadas na pasta imagens/
+[ ] Telefone e WhatsApp conferidos (index.html e script.js)
+[ ] Senha do e-mail preenchida no enviar.php, no servidor
+[ ] Formulário testado no site publicado, com e-mail chegando
+[ ] Nome do sócio e número da OAB (placeholder "Dr. [Nome do sócio]")
+[ ] Nota "4,9" na faixa .faixa-metricas — trocar pela avaliação real
+    do escritório ou remover esse item
+[ ] Autorização dos clientes citados nos depoimentos (Código de Ética)
+[ ] Endereço do canonical/og:url conferido no <head>
+[ ] Link da Política de Privacidade e do LinkedIn no rodapé
+
+
+PERSONALIZAÇÃO RÁPIDA
+---------------------
+Todas as cores e fontes estão no topo de estilos.css, no bloco :root.
+Trocar --ouro, --marinho ou --serif reestiliza a página inteira.
